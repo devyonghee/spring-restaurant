@@ -1,0 +1,3 @@
+rootProject.name = 'spring-restaurant'
+
+include 'eatgo-api'
