@@ -1,6 +1,16 @@
 package kr.co.fastcampus.springrestaurant.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class MenuItem {
+
+    @Id
+    private Long id;
+
+    private Long restaurantId;
+
     private final String name;
 
     public MenuItem(String name) {
