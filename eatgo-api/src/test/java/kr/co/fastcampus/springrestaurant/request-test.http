@@ -33,5 +33,25 @@ Content-Type: application/json
 
 ###
 
+POST localhost:8080/restaurants
+Content-Type: application/json
+
+{"name":"test","address":"Seoul"}
 
 
+###
+
+GET localhost:8080/restaurants/1
+
+###
+
+PATCH localhost:8080/restaurants/1
+Content-Type: application/json
+
+{"name":"BeRyong","address":"Seoul"}
+
+###
+
+GET localhost:8080/restaurants/404
+
+###

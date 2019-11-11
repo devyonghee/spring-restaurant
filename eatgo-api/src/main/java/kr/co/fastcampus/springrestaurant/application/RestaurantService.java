@@ -1,11 +1,9 @@
 package kr.co.fastcampus.springrestaurant.application;
 
-import kr.co.fastcampus.springrestaurant.domain.MenuItem;
-import kr.co.fastcampus.springrestaurant.domain.MenuItemRepository;
-import kr.co.fastcampus.springrestaurant.domain.Restaurant;
-import kr.co.fastcampus.springrestaurant.domain.RestaurantRepository;
+import kr.co.fastcampus.springrestaurant.domain.*;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -23,7 +21,7 @@ public class RestaurantService {
     }
 
     public Restaurant getRestaurant(Long id) {
-        Restaurant restaurant = restaurantRepository.findById(id).orElse(null);
+        Restaurant restaurant = restaurantRepository.findById(id).orElseThrow(() -> new RestaurantNotFoundException(id));
 
         List<MenuItem> menuItems = menuItemRepository.findAllByRestaurantId(id);
         restaurant.setMenuItems(menuItems);
@@ -32,5 +30,12 @@ public class RestaurantService {
 
     public Restaurant addRestaurant(Restaurant restaurant) {
         return restaurantRepository.save(restaurant);
+    }
+
+    @Transactional
+    public Restaurant updateRestaurant(long id, String name, String address) {
+        Restaurant restaurant = restaurantRepository.findById(id).orElse(null);
+        restaurant.updateInformation(name, address);
+        return restaurant;
     }
 }
