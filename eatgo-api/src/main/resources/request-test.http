@@ -55,3 +55,10 @@ Content-Type: application/json
 GET localhost:8080/restaurants/404
 
 ###
+
+PATCH localhost:8080/restaurants/1/menuitems
+Content-Type: application/json
+
+< ./menuitems.json
+
+###

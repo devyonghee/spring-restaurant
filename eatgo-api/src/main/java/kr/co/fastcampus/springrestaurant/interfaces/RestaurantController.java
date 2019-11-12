@@ -41,10 +41,11 @@ public class RestaurantController {
     }
 
     @PatchMapping("restaurants/{id}")
-    String update(@PathVariable("id") Long id, @Valid @RequestBody Restaurant restaurant) {
+    public String update(@PathVariable("id") Long id, @Valid @RequestBody Restaurant restaurant) {
         String name = restaurant.getName();
         String address = restaurant.getAddress();
         restaurantService.updateRestaurant(id, name, address);
         return "{}";
     }
+
 }
