@@ -94,3 +94,31 @@ GET localhost:8080/categories
 
 ###
 
+POST localhost:8080/users
+Content-Type: application/json
+
+< ./user.json
+
+###
+
+GET  localhost:8080/users
+
+###
+
+PATCH localhost:8080/users/1
+Content-Type: application/json
+
+{"name": "Tester","email": "tester@example.com", "level": 100}
+
+###
+
+DELETE localhost:8080/users/1
+
+###
+
+POST localhost:8080/users
+Content-Type: application/json
+
+{"name":"Tester","email": "tester@example.com", "password": "test"}
+
+###
