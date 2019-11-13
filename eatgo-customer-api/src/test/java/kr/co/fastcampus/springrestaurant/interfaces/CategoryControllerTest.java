@@ -1,7 +1,7 @@
 package kr.co.fastcampus.springrestaurant.interfaces;
 
-import kr.co.fastcampus.springrestaurant.application.ReviewService;
-import kr.co.fastcampus.springrestaurant.domain.Review;
+import kr.co.fastcampus.springrestaurant.application.CategoryService;
+import kr.co.fastcampus.springrestaurant.domain.Category;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,33 +14,31 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.ArrayList;
 
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(ReviewController.class)
-class ReviewControllerTest {
-
+@WebMvcTest(CategoryController.class)
+class CategoryControllerTest {
     @Autowired
-    private MockMvc mvc;
+    MockMvc mvc;
 
     @MockBean
-    private ReviewService reviewService;
+    private CategoryService categoryService;
 
     @Test
-    public void list() throws Exception {
-        ArrayList<Review> reviews = new ArrayList<>();
-        reviews.add(Review.builder().description("Cool!").build());
-        given(reviewService.getReviews()).willReturn(reviews);
+    void list() throws Exception {
+        ArrayList<Category> categories = new ArrayList<>();
+        categories.add(Category.builder().name("Korean Food").build());
+        given(categoryService.getCategories()).willReturn(categories);
 
-        mvc.perform(get("/reviews"))
+        mvc.perform(get("/categories"))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Cool!")));
+                .andExpect(content().string(containsString("Korean Food")));
     }
 }

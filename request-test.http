@@ -11,9 +11,14 @@ GET localhost:8080
 ###
 
 
-GET localhost:8080/restaurants
+GET localhost:8080/restaurants?region=Seoul
 
 ###
+
+GET localhost:8080/restaurants?region=Seoul&category=1
+
+###
+
 
 GET localhost:8080/restaurants/1004
 
@@ -30,6 +35,13 @@ POST localhost:8080/restaurants
 Content-Type: application/json
 
 {"name":"JOKER","address":"Seoul"}
+
+###
+
+POST localhost:8080/restaurants
+Content-Type: application/json
+
+{"name":"Cyber Food","address":"Gangnam"}
 
 ###
 
@@ -69,3 +81,16 @@ Content-Type: application/json
 < ./review.json
 
 ###
+
+GET localhost:8080/restaurants/1/menuitems
+
+###
+
+GET localhost:8080/regions
+
+###
+
+GET localhost:8080/categories
+
+###
+

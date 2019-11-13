@@ -19,13 +19,12 @@ public class RestaurantService {
         this.reviewRepository = reviewRepository;
     }
 
-    public List<Restaurant> getRestaurants() {
-        return restaurantRepository.findAll();
+    public List<Restaurant> getRestaurants(String region, Long categoryId) {
+        return restaurantRepository.findAllByAddressContainingAndCategoryId(region, categoryId);
     }
 
     public Restaurant getRestaurant(Long id) {
         Restaurant restaurant = restaurantRepository.findById(id).orElseThrow(() -> new RestaurantNotFoundException(id));
-
         List<MenuItem> menuItems = menuItemRepository.findAllByRestaurantId(id);
         List<Review> reviews = reviewRepository.findAllByRestaurantId(id);
         restaurant.setMenuItems(menuItems);

@@ -1,7 +1,7 @@
 package kr.co.fastcampus.springrestaurant.interfaces;
 
-import kr.co.fastcampus.springrestaurant.application.MenuItemService;
-import kr.co.fastcampus.springrestaurant.domain.MenuItem;
+import kr.co.fastcampus.springrestaurant.application.RegionService;
+import kr.co.fastcampus.springrestaurant.domain.Region;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,44 +12,48 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(MenuItemController.class)
-class MenuItemControllerTest {
+@WebMvcTest(RegionController.class)
+class RegionControllerTest {
     @Autowired
     MockMvc mvc;
 
     @MockBean
-    MenuItemService menuItemService;
+    private RegionService regionService;
 
     @Test
     void list() throws Exception {
-        ArrayList<MenuItem> menuItems = new ArrayList<>();
-        menuItems.add(MenuItem.builder().name("Kimchi").build());
-        given(menuItemService.getMenuItems(1L)).willReturn(menuItems);
+        ArrayList<Region> regions = new ArrayList<>();
+        regions.add(Region.builder().name("Seoul").build());
+        given(regionService.getRegions()).willReturn(regions);
 
-        mvc.perform(get("/restaurants/1/menuitems"))
+        mvc.perform(get("/regions"))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Kimchi")));
+                .andExpect(content().string(containsString("Seoul")));
     }
 
     @Test
-    void bulkUpdate() throws Exception {
-        mvc.perform(patch("/restaurants/1/menuitems")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("[]")).andExpect(status().isOk());
+    void create() throws Exception {
+        Region region = Region.builder().name("Seoul").build();
+        given(regionService.addRegion("Seoul")).willReturn(region);
 
-        verify(menuItemService).bulkUpdate(eq(1L), any());
+        mvc.perform(post("/regions")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"name\":\"Seoul\"}"))
+                .andExpect(status().isCreated())
+                .andExpect(content().string("{}"));
+
+        verify(regionService).addRegion(eq("Seoul"));
     }
+
 }
