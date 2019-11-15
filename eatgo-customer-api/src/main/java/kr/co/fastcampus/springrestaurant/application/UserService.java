@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.NotEmpty;
 import java.util.Optional;
 
 @Service
@@ -35,5 +34,9 @@ public class UserService {
                 .level(1L)
                 .build();
         return userRepository.save(user);
+    }
+
+    public User authenticate(String email, String password) {
+        return null;
     }
 }
