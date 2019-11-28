@@ -2,7 +2,7 @@ package kr.co.fastcampus.springrestaurant.domain;
 
 import org.junit.jupiter.api.Test;
 
-import  static org.assertj.core.api.Assertions.*;
+import  static org.junit.jupiter.api.Assertions.*;
 
 class UserTest {
     @Test
@@ -13,12 +13,12 @@ class UserTest {
                 .level(100L)
                 .build();
 
-        assertThat(user.getName()).isEqualTo("테스터");
-        assertThat(user.isAdmin()).isTrue();
-        assertThat(user.isActive()).isTrue();
+        assertEquals("테스터", user.getName());
+        assertTrue(user.isAdmin());
+        assertTrue(user.isActive());
 
         user.deactivate();
 
-        assertThat(user.isActive()).isFalse();
+        assertFalse(user.isActive());
     }
 }
