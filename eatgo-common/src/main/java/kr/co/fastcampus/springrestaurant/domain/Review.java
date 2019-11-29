@@ -23,7 +23,6 @@ public class Review {
     @Setter
     private Long restaurantId;
 
-    @NotEmpty
     private String name;
 
     @Min(0)
